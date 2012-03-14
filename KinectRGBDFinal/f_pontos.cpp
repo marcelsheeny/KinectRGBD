@@ -210,9 +210,9 @@ double** ransac (double** mq, Npontos ptsimg1, Npontos ptsimg2, int nIteracoes, 
 				respRansac = multiplicaMatrizes(matrizRansac,posRansac,4,4,4,1);
 				respMq = multiplicaMatrizes(mq,posRansac,4,4,4,1);
 
-				erro += pow(respMq[0][0] - respRansac[0][0],2)+
+				erro += sqrt(pow(respMq[0][0] - respRansac[0][0],2)+
 					    pow(respMq[1][0] - respRansac[1][0],2)+
-						pow(respMq[2][0] - respRansac[2][0],2);
+						pow(respMq[2][0] - respRansac[2][0],2));
 			}
 			//erro /= 100000;
 
