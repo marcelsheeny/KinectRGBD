@@ -160,6 +160,7 @@ double** ransac (double** mq, Npontos ptsimg1, Npontos ptsimg2, int nIteracoes, 
 		double** respRansac = alocaMatriz2DDouble(4,1);
 		double** respMq = alocaMatriz2DDouble(4,1);
 
+		double dif1, dif2, dif3;
 		for (int i = 0; i < nIteracoes; i++) {
 			for (int n = 0; n < nPtsRansac; n++) {
 				random = rand()%(ptsimg2.npts+1);
@@ -184,12 +185,14 @@ double** ransac (double** mq, Npontos ptsimg1, Npontos ptsimg2, int nIteracoes, 
 				respRansac = multiplicaMatrizes(matrizRansac,posRansac,4,4,4,1);
 				respMq = multiplicaMatrizes(mq,posRansac,4,4,4,1);
 
-				erro += sqrt(pow(respMq[0][0] - respRansac[0][0],2)+
-					    pow(respMq[1][0] - respRansac[1][0],2)+
-						pow(respMq[2][0] - respRansac[2][0],2));
+				dif1 = respMq[0][0] - respRansac[0][0];
+				dif2 = respMq[1][0] - respRansac[1][0];
+				dif3 = respMq[2][0] - respRansac[2][0];
+				erro += sqrt((dif1)*(dif1)+
+					         (dif2)*(dif2)+
+							 (dif3)*(dif3));
 			}
-			//erro /= 100000;
-
+			
 			if (erro < menorErro) {
 				menorErro = erro;
 				melhorMatriz = matrizRansac;

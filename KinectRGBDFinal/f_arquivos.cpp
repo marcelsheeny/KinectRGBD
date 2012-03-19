@@ -172,7 +172,10 @@ void desenhaDeUmVetorQuads(int ***v, int resx, int resy, int divz,double** matri
 		for (int j = 0; j < resy; j++) {
 			if (v[i][j][0] != 0) {
 
-				pos[0][0] = (double)i; pos[1][0] = (double)j; pos[2][0] = (double)v[i][j][0]; pos[3][0] = 1.0;
+				pos[0][0] = (double)i; 
+				pos[1][0] = (double)j; 
+				pos[2][0] = (double)v[i][j][0]; 
+				pos[3][0] = 1.0;
 				res = multiplicaMatrizes(matrix,pos,4,4,4,1);
 
 				glColor3f((GLfloat)v[i][j][1]/255, (GLfloat)v[i][j][2]/255, (GLfloat)v[i][j][3]/255);
