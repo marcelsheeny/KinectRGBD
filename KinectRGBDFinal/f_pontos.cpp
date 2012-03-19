@@ -133,34 +133,8 @@ void desenhaDeUmVetorTriangleStripSemMatriz(int ***v, int resx, int resy, int di
 	glEnd();
 }
 
-void desenhaDeUmVetorQuads(int ***v, int resx, int resy, int divz,double** matrix) {
-
-	glBegin(GL_QUADS);
-	double** pos = alocaMatriz2DDouble(4,1);
-	double** res = alocaMatriz2DDouble(4,1);
 
 
-	for (int i = 0; i < resx; i++) {
-		for (int j = 0; j < resy; j++) {
-			if (v[i][j][0] != 0) {
-
-				pos[0][0] = (double)i; pos[1][0] = (double)j; pos[2][0] = (double)v[i][j][0]; pos[3][0] = 1.0;
-				res = multiplicaMatrizes(matrix,pos,4,4,4,1);
-
-				glColor3f((GLfloat)v[i][j][1]/255, (GLfloat)v[i][j][2]/255, (GLfloat)v[i][j][3]/255);
-				glNormal3f(0.0, 0.0, 1.0);
-				glVertex3i(res[0][0], -res[1][0] , -res[2][0]/divz);
-				glVertex3i(res[0][0]+1, -res[1][0] , -res[2][0]/divz);
-				glVertex3i(res[0][0]+1, -res[1][0]-1 , -res[2][0]/divz);
-				glVertex3i(res[0][0], -res[1][0]-1 , -res[2][0]/divz);
-				
-			}
-		}
-	}
-	glEnd();
-	liberaMatrizDouble(4,1,pos);
-	liberaMatrizDouble(4,1,res);
-}
 
 double** ransac (double** mq, Npontos ptsimg1, Npontos ptsimg2, int nIteracoes, int nPtsRansac) {
 	if (ptsimg2.npts > 15) {
@@ -276,8 +250,8 @@ void sift (char colorFile1[], char colorFile2[], Npontos* pontos1, Npontos* pont
 				(*pontos2).pt[m].x = pt2.x;(*pontos2).pt[m].y = pt2.y;(*pontos2).pt[m].z = malha2[pt2.x][pt2.y][0];
 
 
-				//pontos2.pt[m].x = pt1.x;  pontos2.pt[m].y = pt1.y;  pontos2.pt[m].z = malha1[pt1.x][pt1.y][0];
-				//pontos1.pt[m].x = pt2.x;  pontos1.pt[m].y = pt2.y;  pontos1.pt[m].z = malha2[pt2.x][pt2.y][0];
+				//(*pontos2).pt[m].x = pt1.x;  (*pontos2).pt[m].y = pt1.y;  (*pontos2).pt[m].z = malha1[pt1.x][pt1.y][0];
+				//(*pontos1).pt[m].x = pt2.x;  (*pontos1).pt[m].y = pt2.y;  (*pontos1).pt[m].z = malha2[pt2.x][pt2.y][0];
 
 				pt2.y += img1->height;
 				cvLine( stacked, pt1, pt2, CV_RGB(255,0,255), 1, 8, 0 );
@@ -290,6 +264,7 @@ void sift (char colorFile1[], char colorFile2[], Npontos* pontos1, Npontos* pont
 
 	(*pontos1).npts = m;
 	(*pontos2).npts = m;
+	//cvShowImage("SIFT", stacked);
 }
 
 	

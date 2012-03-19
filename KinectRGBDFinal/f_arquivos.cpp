@@ -161,4 +161,78 @@ void desenhaDoArquivo (char depthFile[], char colorFile[], int resx, int resy) {
 	fclose(fc);	
 }
 
+void desenhaDeUmVetorQuads(int ***v, int resx, int resy, int divz,double** matrix) {
+
+	glBegin(GL_QUADS);
+	double** pos = alocaMatriz2DDouble(4,1);
+	double** res = alocaMatriz2DDouble(4,1);
+
+
+	for (int i = 0; i < resx; i++) {
+		for (int j = 0; j < resy; j++) {
+			if (v[i][j][0] != 0) {
+
+				pos[0][0] = (double)i; pos[1][0] = (double)j; pos[2][0] = (double)v[i][j][0]; pos[3][0] = 1.0;
+				res = multiplicaMatrizes(matrix,pos,4,4,4,1);
+
+				glColor3f((GLfloat)v[i][j][1]/255, (GLfloat)v[i][j][2]/255, (GLfloat)v[i][j][3]/255);
+				glNormal3f(0.0, 0.0, 1.0);
+				glVertex3i(res[0][0], -res[1][0] , -res[2][0]/divz);
+				glVertex3i(res[0][0]+1, -res[1][0] , -res[2][0]/divz);
+				glVertex3i(res[0][0]+1, -res[1][0]-1 , -res[2][0]/divz);
+				glVertex3i(res[0][0], -res[1][0]-1 , -res[2][0]/divz);
+				
+			}
+		}
+	}
+	glEnd();
+	liberaMatrizDouble(4,1,pos);
+	liberaMatrizDouble(4,1,res);
+}
+
+void desenhaDeUmArquivoTriangle(char vertices[],char rgb[], double** matrix) {
+	FILE *fvertices = NULL;
+	FILE* frgb = NULL;
+	glBegin(GL_TRIANGLES);
+	double** pos = alocaMatriz2DDouble(4,1);
+	double** res = alocaMatriz2DDouble(4,1);
+
+	GLint verticelido[3] = {0,0,0};
+	GLint rgblido[3] = {0,0,0};
+
+	fvertices = fopen (vertices,"r");
+	frgb = fopen (rgb,"r");
+
+	if(fvertices == NULL || frgb == NULL) {
+		printf("ERRO!\n");
+		system ("pause");
+		printf ("Erro no desenhoz\n");
+		return;
+		//exit(1);
+	}
+
+	while (verticelido[0] != -1) {
+		//armazena o conteudo dos arquivos nas variaveis
+		fscanf(fvertices,"%f",&verticelido[0]);
+		fscanf(fvertices,"%f",&verticelido[1]);
+		fscanf(fvertices,"%f",&verticelido[2]);
+		fscanf(frgb,"%f",&rgblido[0]);
+		fscanf(frgb,"%f",&rgblido[1]);
+		fscanf(frgb,"%f",&rgblido[2]);
+
+		glColor3f((float)rgblido[0]/255, (float)rgblido[1]/255, (float)rgblido[2]/255);
+		glVertex3i(verticelido[0], verticelido[1] , verticelido[2]);
+
+
+
+		glNormal3f(0.0, 0.0, 1.0);
+			
+	}
+	glEnd();
+	liberaMatrizDouble(4,1,pos);
+	liberaMatrizDouble(4,1,res);
+
+	fclose(fvertices);
+	fclose(frgb);	
+}
 

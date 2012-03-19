@@ -10,5 +10,7 @@ int*** converteArquivosParaVetor (char depthFile[], char colorFile[],int resx, i
 
 void desenhaDoArquivo (char depthFile[], char colorFile[],int resx, int resy);
 
+void desenhaDeUmArquivoTriangle(char vertices[],char rgb[], double** matrix);
+
 
 #endif
