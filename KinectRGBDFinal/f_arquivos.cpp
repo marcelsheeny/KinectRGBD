@@ -178,12 +178,12 @@ void desenhaDeUmVetorQuads(int ***v, int resx, int resy, int divz,double** matri
 				pos[3][0] = 1.0;
 				res = multiplicaMatrizes(matrix,pos,4,4,4,1);
 
-				glColor3f((GLfloat)v[i][j][1]/255, (GLfloat)v[i][j][2]/255, (GLfloat)v[i][j][3]/255);
+				glColor3f((GLfloat)v[i][j][3]/255, (GLfloat)v[i][j][2]/255, (GLfloat)v[i][j][1]/255);
 				glNormal3f(0.0, 0.0, 1.0);
-				glVertex3i(res[0][0], -res[1][0] , -res[2][0]/divz);
-				glVertex3i(res[0][0]+1, -res[1][0] , -res[2][0]/divz);
-				glVertex3i(res[0][0]+1, -res[1][0]-1 , -res[2][0]/divz);
-				glVertex3i(res[0][0], -res[1][0]-1 , -res[2][0]/divz);
+				glVertex3d((GLdouble)res[0][0], (GLdouble)(-res[1][0]) , (GLdouble)(-res[2][0])/(GLdouble)divz);
+				glVertex3d((GLdouble)(res[0][0])+1, (GLdouble)(-res[1][0]) ,(GLdouble) (-res[2][0]/divz));
+				glVertex3d((GLdouble)(res[0][0])+1, (GLdouble)(-res[1][0])-1 , (GLdouble)(-res[2][0])/(GLdouble)divz);
+				glVertex3d((GLdouble)res[0][0], (GLdouble)(-res[1][0])-1 , (GLdouble)(-res[2][0])/(GLdouble)divz);
 				
 			}
 		}

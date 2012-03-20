@@ -153,12 +153,12 @@ void GerenciaMouse(int button, int state, int x, int y)
 void Desenha(void) {
 
 	
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//desenhaDeUmVetorTriangleStrip(malha1,RESX,RESY,100,1000000,matrizidentidade);
-	desenhaDeUmVetorQuads(malha1,RESX,RESY,10,matrizRansac);
+	desenhaDeUmVetorQuads(malha1,RESX,RESY,70,matrizRansac);
 	//desenhaDeUmVetorQuads(malha1,RESX,RESY,100,matrixmq);
 	//desenhaDeUmVetorQuads(malha1,RESX,RESY,100,matrizidentidade);
-	desenhaDeUmVetorQuads(malha2,RESX,RESY,10,matrizidentidade);
+	desenhaDeUmVetorQuads(malha2,RESX,RESY,70,matrizidentidade);
 	//desenhaDeUmVetorQuads(malha2,RESX,RESY,100,matrizRansac);
 	//desenhaDeUmArquivoTriangle("texto_tl.txt","texto_texMU.txt",matrizidentidade);
 	//desenhaDeUmVetorQuads(malha2,RESX,RESY,100,matrizidentidade);
